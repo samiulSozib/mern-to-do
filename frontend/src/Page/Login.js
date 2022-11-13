@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react'
+import React, { useState,useContext,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import AlertContext from '../context/alert/alertContext';
 
@@ -11,6 +11,15 @@ const Login = () => {
     const navigate = useNavigate()
 
     const [credentials, setcredentials] = useState({ email: "", password: "" });
+
+    useEffect(() => {
+        if(localStorage.getItem("token")){
+            navigate("/")
+        }else{
+            navigate("/login")
+        }
+    }, [])
+
 
     const handleLogin = async (e) => {
         
@@ -28,13 +37,14 @@ const Login = () => {
         const json = await response.json()
         //console.log(json)
 
+
         if (response.status === 200 || response.status === 201) {
             showAlert("Login Success","success")
             console.log(alert)
             localStorage.setItem("token", json.authToken)
             setTimeout(() => {
                 navigate('/')
-            }, 10000);
+            }, 1000);
             
         } else {
             showAlert('Login Fail','danger')

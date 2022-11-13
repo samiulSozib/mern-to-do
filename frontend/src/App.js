@@ -12,20 +12,19 @@ import AlertState from './context/alert/AlertState';
 const App = () => {
   return (
     <div>
-      
-      <NoteState>
       <AlertState>
+      <NoteState>
         <Router>
           <Navbar />
-          <Alert alert={null}/>
+          <Alert/>
           <Routes>
             <Route exact path="/" element={<Home />}></Route>
             <Route exact path='/login' element={<Login />}></Route>
             <Route exact path='signup' element={<Signup />}></Route>
           </Routes>
         </Router>
-        </AlertState>
       </NoteState>
+      </AlertState>
       
     </div>
   )
